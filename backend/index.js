@@ -34,13 +34,13 @@ const requestLogger = (request, response, next) => {
   next()
 }
 
-/* app.use(cors()) // allow all from any urls */
+app.use(cors()) // allow all from any urls
 
-const corsOptions = { // allow only from http://localhost:5173
+/* const corsOptions = { // allow only from http://localhost:5173
   origin: 'http://localhost:5173',
 }
 
-app.use(cors(corsOptions))
+app.use(cors(corsOptions)) */
 
 app.use(express.json())
 app.use(requestLogger)
