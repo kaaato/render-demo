@@ -42,6 +42,7 @@ app.use(cors()) // allow all from any urls
 
 app.use(cors(corsOptions)) */
 
+app.use(express.static('dist'))
 app.use(express.json())
 app.use(requestLogger)
 
