@@ -2,7 +2,7 @@
 
 const express = require('express')
 const app = express()
-const cors = require('cors')
+// const cors = require('cors')
 
 let notes = [
   {
@@ -34,7 +34,7 @@ const requestLogger = (request, response, next) => {
   next()
 }
 
-app.use(cors()) // allow all from any urls
+// app.use(cors()) // allow all from any urls
 
 /* const corsOptions = { // allow only from http://localhost:5173
   origin: 'http://localhost:5173',
