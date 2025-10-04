@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 
 const App = () => {
   const [notes, setNotes] = useState([])
-  const [newNote, setNewNote] = useState('')
+  const [newNote, setNewNote] = useState('a new note...')
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
 
@@ -46,7 +46,7 @@ const App = () => {
     noteService
       .update(id, changedNote)
       .then(returnedNote => {
-        setNotes(notes.map(note => (note.id === id) ? returnedNote : note))
+        setNotes(notes.map(note => (note.id !== id) ? note : returnedNote))
       })
       .catch(error => {
         setErrorMessage(
