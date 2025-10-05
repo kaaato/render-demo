@@ -1,6 +1,6 @@
+require('dotenv').config() 
 const express = require('express')
 const app = express()
-require('dotenv').config() 
 const Note = require('./models/note')
 
 const requestLogger = (request, response, next) => {
@@ -19,10 +19,12 @@ app.get('/', (request, response) => {
   response.send('<h1>Hello World!</h1>')
 })
 
-app.get('/api/notes', (request, response) => {
-  Note.find({}).then(notes => {
+app.get('/api/notes', (request, response, next) => {
+  Note.find({})
+    .then(notes => {
     response.json(notes)
-  })
+    })
+    .catch(error => next(error))
 })
 
 app.get('/api/notes/:id', (request, response, next) => {
@@ -57,23 +59,23 @@ app.put('/api/notes/:id', (request, response, next) => {
       note.content = content
       note.important = important
 
-      return note.save().then((updatedNote) => {
-        response.json(updatedNote)
-      })
+      return note.save()
+              .then((updatedNote) => {
+                response.json(updatedNote)
+              })
     })
     .catch(error => next(error))
 })
 
 app.post('/api/notes', (request, response, next) => {
-  const body = request.body 
+  const body = request.body
 
   const note = new Note({
     content: body.content,
     important: body.important || false,
   })
 
-  note
-    .save()
+  note.save()
     .then(savedNote => {
       response.json(savedNote)
     })
